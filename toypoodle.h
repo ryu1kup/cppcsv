@@ -56,16 +56,20 @@ namespace toypoodle {
     }
 
     template<typename T>
-    std::vector<T> each_to(const std::vector<std::string> &v) {
-        std::vector<T> u {};
-        for (const auto& s : v) {
-            std::istringstream reader(s);
-            T tmp = 0;
-            reader >> tmp;
-            u.emplace_back(tmp);
+        std::vector<T> each_to(const std::vector<std::string> &v, const T fillna=0) {
+            std::vector<T> u {};
+            for (const auto& s : v) {
+                if (s == "") {
+                    u.emplace_back(fillna);
+                } else {
+                    std::istringstream reader(s);
+                    T tmp = 0;
+                    reader >> tmp;
+                    u.emplace_back(tmp);
+                }
+            }
+            return u;
         }
-        return u;
-    }
 }
 
 #endif

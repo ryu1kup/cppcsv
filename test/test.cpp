@@ -16,5 +16,9 @@ int main() {
         }
     }
 
-    vector<double> A = toypoodle::each_to<double>(csv["A"]);
+    auto A = toypoodle::each_to<double>(csv["A"]);
+    cout << "A (casted as double) --------" << endl;
+    for (const auto a : A) {
+        cout << a << endl;
+    }
 }
