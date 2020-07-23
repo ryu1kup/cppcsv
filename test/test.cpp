@@ -15,4 +15,6 @@ int main() {
             cout << x << endl;
         }
     }
+
+    vector<double> A = toypoodle::each_to<double>(csv["A"]);
 }

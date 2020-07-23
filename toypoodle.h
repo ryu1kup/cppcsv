@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <map>
 
 namespace toypoodle {
@@ -52,6 +53,18 @@ namespace toypoodle {
             readcnt += 1;
         }
         return csv;
+    }
+
+    template<typename T>
+    std::vector<T> each_to(const std::vector<std::string> &v) {
+        std::vector<T> u {};
+        for (const auto& s : v) {
+            std::istringstream reader(s);
+            T tmp = 0;
+            reader >> tmp;
+            u.emplace_back(tmp);
+        }
+        return u;
     }
 }
 
