@@ -23,7 +23,7 @@ Here is the functions given by toypoodle.
 ### toypoodle::read_csv
 
 ```
-std::map<std::string, std::vector<std::string>> toypoodle::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false);
+std::map<std::string, std::vector<std::string>> toypoodle::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
 read a csv file and return `std::map` object, which key is the header and which value is the csv row as `std::vector`.
 
@@ -31,7 +31,7 @@ read a csv file and return `std::map` object, which key is the header and which 
 
 ```
 template<typename T>
-std::vector<T> each_to(const std::vector<std::string> &v);
+std::vector<T> each_to(const std::vector<std::string> &v, const T fillna=0);
 ```
 
 return `std::vector` object with casting each element to the template argument type.
