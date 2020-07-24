@@ -23,31 +23,41 @@ namespace toypoodle {
         return items;
     }
 
-    std::map<std::string, std::vector<std::string>> read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false){
+    std::map<std::string, std::vector<std::string>> read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1){
         std::map<std::string, std::vector<std::string>> csv {};
         std::vector<std::string> headers {};
-        unsigned int nrow = 0;
+        unsigned int ncolumn = 0;
         unsigned int readcnt = 0;
         std::ifstream ifs(fname);
         std::string record = "";
         while (ifs >> record) {
             std::vector<std::string> elements = split(record);
             if (readcnt == 0) {
-                nrow = elements.size();
+                ncolumn = elements.size();
                 if (skip_header) {
-                    for (unsigned int irow = 0; irow < nrow; ++irow) {
+                    for (unsigned int irow = 0; irow < ncolumn; ++irow) {
                         headers.emplace_back("Unnamed: " + std::to_string(irow));
                         csv[headers[irow]] = {elements[irow]};
                     }
                 } else {
-                    for (unsigned int irow = 0; irow < nrow; ++irow) {
+                    for (unsigned int irow = 0; irow < ncolumn; ++irow) {
                         headers.emplace_back(elements[irow] == "" ? "Unnamed: " + std::to_string(irow) : elements[irow]);
                         csv[headers[irow]] = {};
                     }
                 }
             } else {
-                for (unsigned int irow = 0; irow < nrow; ++irow) {
+                for (unsigned int irow = 0; irow < ncolumn; ++irow) {
                     csv[headers[irow]].emplace_back(elements[irow]);
+                }
+            }
+            if (readcnt == nrow) {
+                if (skip_header) {
+                    for (unsigned int irow = 0; irow < ncolumn; ++irow) {
+                        csv[headers[irow]].pop_back();
+                    }
+                    break;
+                } else {
+                    break;
                 }
             }
             readcnt += 1;
