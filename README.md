@@ -1,14 +1,14 @@
-# toypoodle
+# csv2map
 
 a brief csv reader in C++
 
 ## usage
 
 ```
-#include "toypoodle.h"
+#include "csv2map.h"
 
 int main(){
-    auto csv = toypoodle::read_csv("test.csv");
+    auto csv = csv2map::read_csv("test.csv");
 
     for (auto [header, row] : csv) {
         // processing
@@ -18,12 +18,12 @@ int main(){
 
 ## functions
 
-Here is the functions given by toypoodle.
+Here is the functions given by csv2map.
 
-### toypoodle::read_csv
+### csv2map::read_csv
 
 ```
-std::map<std::string, std::vector<std::string>> toypoodle::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
+std::map<std::string, std::vector<std::string>> csv2map::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
 read a csv file and return `std::map` object, which key is the header and which value is the csv row as `std::vector`.
 
@@ -34,7 +34,7 @@ read a csv file and return `std::map` object, which key is the header and which 
 | 3 | skip_header    | bool   | boolean controlling if you skip header or not  |
 | 4 | nrow           | int    | number of lines to be read                     |
 
-### toypoodle::each_to
+### csv2map::each_to
 
 ```
 template<typename T>
