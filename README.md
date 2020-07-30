@@ -19,6 +19,8 @@ int main(){
 
 ### csv::read_csv
 
+declaration
+
 ```
 data_frame csv::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
@@ -34,6 +36,8 @@ The key `std::string` is the header and which value `std::vector,std::string>` i
 
 ### csv::data_frame::get_column
 
+declaration
+
 ```
 template<typename T>
 std::vector<T> get_column(const std::string header, const T fillna=0);
@@ -47,6 +51,8 @@ return `std::vector<T>` object with casting each element to the template argumen
 | 2 | fillna    | T      | value to fill missing data |
 
 ### csv::data_frame::size
+
+declaration
 
 ```
 size_t size();

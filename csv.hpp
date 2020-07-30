@@ -21,7 +21,9 @@ namespace csv {
                 ncolumn(csv.size()),
                 nrow(csv.begin()->second.size()) {}
 
-            column_type& operator[](header_type header) {return csv.at(header);}
+            column_type& operator[](const header_type& header) {return csv.at(header);}
+
+            column_type& at(const header_type& header) {return csv.at(header);}
 
             template <typename T>
                 std::vector<T> get_column(const header_type& header, const T fillna=0){
