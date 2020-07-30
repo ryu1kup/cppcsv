@@ -38,7 +38,7 @@ The key `std::string` is the header and which value `std::vector,std::string>` i
 | 3 | skip_header    | bool   | boolean controlling if you skip header or not  |
 | 4 | nrow           | int    | number of lines to be read                     |
 
-### csv2map::each_to
+### csv2map::get_column
 
 ```
 template<typename T>

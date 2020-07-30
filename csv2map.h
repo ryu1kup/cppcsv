@@ -72,7 +72,7 @@ namespace csv2map {
     }
 
     template<typename T>
-        std::vector<T> each_to(const std::vector<std::string> &v, const T fillna=0) {
+        std::vector<T> get_column(const std::vector<std::string> &v, const T fillna=0) {
             std::vector<T> u {};
             for (const auto& s : v) {
                 if (s == "") {
