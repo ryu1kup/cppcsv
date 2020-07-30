@@ -12,4 +12,5 @@ int main() {
     for (auto x : A) {
         cout << x << endl;
     }
+    cout << csv2map::len(csv) << endl;;
 }

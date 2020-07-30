@@ -8,6 +8,8 @@
 #include <map>
 
 namespace csv2map {
+    using csv_t = std::map<std::string, std::vector<std::string>>;
+
     std::vector<std::string> split(const std::string &s, const char delimiter=','){
         std::vector<std::string> items {};
         std::string token = "";
@@ -23,8 +25,8 @@ namespace csv2map {
         return items;
     }
 
-    std::map<std::string, std::vector<std::string>> read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1){
-        std::map<std::string, std::vector<std::string>> csv {};
+    csv_t read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1){
+        csv_t csv {};
         std::vector<std::string> headers {};
         int ncolumn = 0;
         int readcnt = 0;
@@ -63,6 +65,10 @@ namespace csv2map {
             readcnt += 1;
         }
         return csv;
+    }
+
+    size_t len(const csv_t& csv){
+        return csv.begin()->second.size();
     }
 
     template<typename T>

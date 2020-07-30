@@ -18,14 +18,18 @@ int main(){
 
 ## functions
 
+csv2map provides `std::map<std::string, std::vector<std::string>>` object from a csv file.
+`csv_t` is an alias to this complicated STL container.
+
 Here is the functions given by csv2map.
 
 ### csv2map::read_csv
 
 ```
-std::map<std::string, std::vector<std::string>> csv2map::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
+csv_t csv2map::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
-read a csv file and return `std::map` object, which key is the header and which value is the csv row as `std::vector`.
+read a csv file and return `csv_t` object, which type name is an ailas to `std::map<std::string, std::vector<std::string>>`.
+The key `std::string` is the header and which value `std::vector,std::string>` is the csv column.
 
 |   | arguments      | type   | description                                    |
 | - | -------------- | ------ | ---------------------------------------------- |
@@ -47,3 +51,15 @@ return `std::vector` object with casting each element to the template argument t
 | - | -------------- | -------------- | --------------------------- |
 | 1 | v              | vector<string> | input string vector         |
 | 2 | fillna         | T              | value to fill missing data  |
+
+### csv2map::len
+
+```
+size_t len(const std::map<std::string, std::vector<std::string>> &csv)
+```
+
+return the column length.
+
+|   | arguments      | type           | description                 |
+| - | -------------- | -------------- | --------------------------- |
+| 1 | v              | csv_t          | the csv                     |
