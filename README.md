@@ -1,11 +1,11 @@
-# data_frame
+# cppcsv
 
 a brief csv reader in C++
 
 ## usage
 
 ```
-#include "csv.h"
+#include "csv.hpp"
 
 int main(){
     auto df = csv::read_csv("test.csv");
