@@ -10,8 +10,8 @@ a brief csv reader in C++
 int main(){
     auto csv = csv2map::read_csv("test.csv");
 
-    for (auto [header, row] : csv) {
-        // processing
+    for (auto [header, column] : csv) {
+        // processing column by column
     }
 }
 ```
