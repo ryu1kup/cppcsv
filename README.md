@@ -22,7 +22,7 @@ int main(){
 declaration
 
 ```
-data_frame csv::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
+data_frame csv::read_csv(const std::string& fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
 read a csv file and return `data_frame` object, which class is just a brief wrapper of `std::map<std::string, std::vector<std::string>>`.
 The key `std::string` is the header and which value `std::vector,std::string>` is the csv column.
@@ -40,7 +40,7 @@ declaration
 
 ```
 template<typename T>
-std::vector<T> get_column(const std::string header, const T fillna=0);
+std::vector<T> get_column(const std::string& header, const T fillna=0);
 ```
 
 return `std::vector<T>` object with casting each element to the template argument type.
@@ -49,6 +49,20 @@ return `std::vector<T>` object with casting each element to the template argumen
 | - | --------- | ------ | ---------------------------|
 | 1 | header    | string | header name                |
 | 2 | fillna    | T      | value to fill missing data |
+
+### csv::data__frame::at
+
+declaration
+
+```
+std::vector<std::string> at(const std::string& header)
+```
+
+return the column as `std::vector<std::string>` object
+
+|   | arguments | type   | description                |
+| - | --------- | ------ | ---------------------------|
+| 1 | header    | string | header name                |
 
 ### csv::data_frame::size
 
