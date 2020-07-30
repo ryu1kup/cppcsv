@@ -1,5 +1,5 @@
-#ifndef CSV2MAP_H
-#define CSV2MAP_H
+#ifndef CSV_HPP
+#define CSV_HPP
 
 #include <fstream>
 #include <vector>
@@ -7,8 +7,45 @@
 #include <sstream>
 #include <map>
 
-namespace csv2map {
-    using csv_t = std::map<std::string, std::vector<std::string>>;
+namespace csv {
+    using header_type = std::string;
+    using column_type = std::vector<std::string>;
+    using csv_type = std::map<header_type, column_type>;
+
+    class data_frame {
+        public:
+            using size_type = std::size_t;
+
+            data_frame(const csv_type& csv) :
+                csv(csv),
+                ncolumn(csv.size()),
+                nrow(csv.begin()->second.size()) {}
+
+            column_type& operator[](header_type header) {return csv.at(header);}
+
+            template <typename T>
+                std::vector<T> get_column(const header_type& header, const T fillna=0){
+                    std::vector<T> u {};
+                    for (const auto& s : csv[header]) {
+                        if (s == "") {
+                            u.emplace_back(fillna);
+                        } else {
+                            std::istringstream reader(s);
+                            T tmp = 0;
+                            reader >> tmp;
+                            u.emplace_back(tmp);
+                        }
+                    }
+                    return u;
+                }
+
+            size_type size() const {return nrow;}
+
+        private:
+            csv_type csv;
+            size_type ncolumn;
+            size_type nrow;
+    };
 
     std::vector<std::string> split(const std::string &s, const char delimiter=','){
         std::vector<std::string> items {};
@@ -25,8 +62,8 @@ namespace csv2map {
         return items;
     }
 
-    csv_t read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1){
-        csv_t csv {};
+    data_frame read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1){
+        csv_type csv {};
         std::vector<std::string> headers {};
         int ncolumn = 0;
         int readcnt = 0;
@@ -64,28 +101,8 @@ namespace csv2map {
             }
             readcnt += 1;
         }
-        return csv;
+        return data_frame(csv);
     }
-
-    size_t len(const csv_t& csv){
-        return csv.begin()->second.size();
-    }
-
-    template<typename T>
-        std::vector<T> get_column(const std::vector<std::string> &v, const T fillna=0) {
-            std::vector<T> u {};
-            for (const auto& s : v) {
-                if (s == "") {
-                    u.emplace_back(fillna);
-                } else {
-                    std::istringstream reader(s);
-                    T tmp = 0;
-                    reader >> tmp;
-                    u.emplace_back(tmp);
-                }
-            }
-            return u;
-        }
 }
 
 #endif

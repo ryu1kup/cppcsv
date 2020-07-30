@@ -1,4 +1,4 @@
-#include "csv2map.h"
+#include "csv.hpp"
 
 #include <iostream>
 #include <vector>
@@ -7,10 +7,9 @@
 using namespace std;
 
 int main() {
-    auto csv = csv2map::read_csv("test.csv");
-    auto A = csv["A"];
-    for (auto x : A) {
-        cout << x << endl;
-    }
-    cout << csv2map::len(csv) << endl;;
+    auto df = csv::read_csv("test.csv");
+
+    const auto strA = df["A"];
+    const auto A = df.get_column<string>("A");
+    cout << df.size() << endl;;
 }

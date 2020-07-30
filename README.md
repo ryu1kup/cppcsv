@@ -1,34 +1,28 @@
-# csv2map
+# data_frame
 
 a brief csv reader in C++
 
 ## usage
 
 ```
-#include "csv2map.h"
+#include "csv.h"
 
 int main(){
-    auto csv = csv2map::read_csv("test.csv");
+    auto df = csv::read_csv("test.csv");
 
-    for (auto [header, column] : csv) {
-        // processing column by column
+    auto A = df.get_column<int>("A");
+    for (const auto& a : A) {
+        // process for each element of the column A
     }
 }
 ```
 
-## functions
-
-csv2map provides `std::map<std::string, std::vector<std::string>>` object from a csv file.
-`csv_t` is an alias to this complicated STL container.
-
-Here is the functions given by csv2map.
-
-### csv2map::read_csv
+### csv::read_csv
 
 ```
-csv_t csv2map::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
+data_frame csv::read_csv(const std::string &fname, const char delimiter=',', const bool skip_header=false, const int nrow=-1);
 ```
-read a csv file and return `csv_t` object, which type name is an ailas to `std::map<std::string, std::vector<std::string>>`.
+read a csv file and return `data_frame` object, which class is just a brief wrapper of `std::map<std::string, std::vector<std::string>>`.
 The key `std::string` is the header and which value `std::vector,std::string>` is the csv column.
 
 |   | arguments      | type   | description                                    |
@@ -38,28 +32,24 @@ The key `std::string` is the header and which value `std::vector,std::string>` i
 | 3 | skip_header    | bool   | boolean controlling if you skip header or not  |
 | 4 | nrow           | int    | number of lines to be read                     |
 
-### csv2map::get_column
+### csv::data_frame::get_column
 
 ```
 template<typename T>
-std::vector<T> each_to(const std::vector<std::string> &v, const T fillna=0);
+std::vector<T> get_column(const std::string header, const T fillna=0);
 ```
 
-return `std::vector` object with casting each element to the template argument type.
+return `std::vector<T>` object with casting each element to the template argument type.
 
-|   | arguments      | type           | description                 |
-| - | -------------- | -------------- | --------------------------- |
-| 1 | v              | vector<string> | input string vector         |
-| 2 | fillna         | T              | value to fill missing data  |
+|   | arguments | type   | description                |
+| - | --------- | ------ | ---------------------------|
+| 1 | header    | string | header name                |
+| 2 | fillna    | T      | value to fill missing data |
 
-### csv2map::len
+### csv::data_frame::size
 
 ```
-size_t len(const std::map<std::string, std::vector<std::string>> &csv)
+size_t size();
 ```
 
 return the column length.
-
-|   | arguments      | type           | description                 |
-| - | -------------- | -------------- | --------------------------- |
-| 1 | v              | csv_t          | the csv                     |
